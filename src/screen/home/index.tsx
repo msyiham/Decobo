@@ -99,14 +99,14 @@ const Home = ({navigation}) => {
         </View>
         <View style={{flexDirection:'row', marginTop: 50, width: windowWidth}}>
           <View style={{width:windowWidth*0.5, alignItems: 'center'}}>
-            <TouchableOpacity onPress={()=>navigation.navigate('Introduction')} style={[styles.card2, {width:windowWidth*0.4, height:windowWidth*0.4, borderRadius: windowWidth*0.05}]}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Introduction')} style={[styles.card2, styles.shadowProp,{width:windowWidth*0.4, height:windowWidth*0.4, borderRadius: windowWidth*0.05}]}>
               <Image style={{width:windowWidth*0.2, height:windowWidth*0.2}} source={require('../../asset/pengantar.png')} />
             </TouchableOpacity>
             <Text style={[styles.textBold,styles.titleItem]}>Pengantar</Text>
           </View>
           <View style={{width:windowWidth*0.5, alignItems: 'center'}}>
           <TouchableOpacity
-            style={[styles.card2, { width: windowWidth * 0.4, height: windowWidth * 0.4, borderRadius: windowWidth * 0.05 }]}
+            style={[styles.card2, styles.shadowProp, { width: windowWidth * 0.4, height: windowWidth * 0.4, borderRadius: windowWidth * 0.05 }]}
             onPress={()=>navigation.navigate('ListLevel')}
           >
             <Image style={{ width: windowWidth * 0.2, height: windowWidth * 0.2 }} source={require('../../asset/daftar-buku.png')} />
@@ -116,13 +116,13 @@ const Home = ({navigation}) => {
         </View>
         <View style={{flexDirection:'row', marginTop: 20, width: windowWidth}}>
           <View style={{width:windowWidth*0.5, alignItems: 'center'}}>
-            <TouchableOpacity style={[styles.card2, {width:windowWidth*0.4, height:windowWidth*0.4, borderRadius: windowWidth*0.05}]} onPress={()=>navigation.navigate('Guide')}>
+            <TouchableOpacity style={[styles.card2, styles.shadowProp, {width:windowWidth*0.4, height:windowWidth*0.4, borderRadius: windowWidth*0.05}]} onPress={()=>navigation.navigate('Guide')}>
               <Image style={{width:windowWidth*0.2, height:windowWidth*0.2}} source={require('../../asset/panduan.png')} />
             </TouchableOpacity>
             <Text style={[styles.textBold,styles.titleItem]}>Panduan</Text>
           </View>
           <View style={{width:windowWidth*0.5, alignItems: 'center'}}>
-            <TouchableOpacity style={[styles.card2, {width:windowWidth*0.4, height:windowWidth*0.4, borderRadius: windowWidth*0.05}]} onPress={()=>navigation.navigate('Info')}>
+            <TouchableOpacity style={[styles.card2, styles.shadowProp, {width:windowWidth*0.4, height:windowWidth*0.4, borderRadius: windowWidth*0.05}]} onPress={()=>navigation.navigate('Info')}>
               <Image style={{width:windowWidth*0.2, height:windowWidth*0.2}} source={require('../../asset/pengembang.png')} />
             </TouchableOpacity>
             <Text style={[styles.textBold,styles.titleItem]}>Pengembang</Text>
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
       width: 0,
       height: 7,
     },
-    shadowOpacity: 0.43,
+    shadowOpacity: 0.7,
     shadowRadius: 9.51,
     elevation: 15,
   },
