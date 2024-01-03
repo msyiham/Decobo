@@ -14,82 +14,8 @@ const Home = ({navigation}) => {
   const windowHeight = Dimensions.get('window').height;
   const sliderWidth = windowWidth;
   const itemWidth = windowWidth * 0.9;
-  const carouselRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [sound, setSound] = useState();
 
-  const fetchSoundUrlFromFirestore = async () => {
-    try {
-      const soundDoc = doc(firestore, 'Background Sound', 'Sound');
-      const soundDocSnap = await getDoc(soundDoc);
-      if (soundDocSnap.exists) {
-        const soundData = soundDocSnap.data();
-        const soundUrl = soundData.url; // Asumsi field yang menyimpan URL adalah 'url'
-        console.log("Sound Url:",soundUrl);
-        return soundUrl;
-      } else {
-        console.log('Dokumen suara tidak ditemukan');
-        return null;
-      }
-    } catch (error) {
-      console.error('Gagal mengambil URL suara dari Firestore', error);
-      return null;
-    }
-  };
 
-  const stopSound = () => {
-    if (sound) {
-      sound.stop();
-      sound.release();
-    }
-  };
-  const isSoundPlaying = useRef(false);
-  const soundRef = useRef(null);
-  // Ganti kode useEffect dengan useFocusEffect
-  useFocusEffect(
-    useCallback(() => {
-      const fetchData = async () => {
-        const soundUrl = await fetchSoundUrlFromFirestore();
-        if (soundUrl) {
-          // Gunakan URL suara untuk memainkan suara
-          const audio = new Sound(soundUrl, null, (error) => {
-            if (error) {
-              console.log('Error loading sound: ', error);
-              return;
-            }
-
-            audio.setNumberOfLoops(-1);
-            audio.play(() => {
-              console.log('Suara selesai');
-            });
-
-            soundRef.current = audio;
-            isSoundPlaying.current = true;
-          });
-        }
-      };
-
-      fetchData();
-
-      return () => {
-        if (isSoundPlaying.current) {
-          if (soundRef.current) {
-            soundRef.current.stop();
-            soundRef.current.release();
-          }
-          isSoundPlaying.current = false;
-        }
-      };
-    }, [])
-  );
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('beforeRemove', (e) => {
-      stopSound();
-    });
-
-    return unsubscribe;
-  }, [navigation]);
   return (
     <ImageBackground source={require('../../asset/PAGE_BG/HOME.png')} resizeMode='cover' style={{flex:1, backgroundColor: '#D6F8FF',}}>
       <ScrollView style={[styles.container, {paddingTop: windowHeight*0.05,}]}>

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions, ScrollView, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, Dimensions, ScrollView, ImageBackground, Image } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { FIRESTORE_DB } from '../../../Firebase';
 import { doc, getDocs, collection, getDoc, query, orderBy } from 'firebase/firestore';
@@ -16,17 +16,20 @@ const Info = () => {
   useEffect(() => {
     const fetchData = async () => {
       const querySnapshot = await getDocs(
-        query(collection(firestore, 'Team'), orderBy('number', 'asc'))
+        query(collection(firestore, 'Team'))
       );
-  
       const data = querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...doc.data()
       }));
-  
+    
+      // Mengurutkan data berdasarkan properti 'number' secara ascending ('asc')
+      data.sort((a, b) => a.number - b.number);
+    
       setDataList(data);
       console.log(data);
     };
+    
   
     fetchData();
   }, []);
@@ -71,7 +74,8 @@ const Info = () => {
           <Text style={[styles.textBold, styles.itemText]}>Siapa perancang dari DECOBO?</Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' , alignItems: 'center'}}>
             {dataList.map(item => (
-              <View key={item.id} style={{ width: '50%' , alignItems: 'center', marginTop: 5, height:windowHeight*0.1, justifyContent:'center'}}>
+              <View key={item.id} style={{ width: '50%' , alignItems: 'center', marginTop: 5, justifyContent:'center'}}>
+                <Image source={{ uri: item.image }} style={{width:ImageSize, height:ImageSize}} borderRadius={ImageSize}/>
                 <Text style={[styles.textBold, styles.text]}>{item.as}</Text>
                 <Text style={[styles.text2, styles.textRegular, {marginTop: 10,}]}>{item.id}</Text>
               </View>
